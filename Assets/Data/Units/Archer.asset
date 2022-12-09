@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e1a90c59c26794ea39b2315bfb93c0, type: 3}
+  m_Name: Archer
+  m_EditorClassIdentifier: Assembly-CSharp::Stats
+  unitType: 0
+  unitClass: 0
+  maxHp: 0
+  overHp: 0
+  slashingArmour: 0
+  piercingArmour: 0
+  magicalArmour: 0
+  damageType: 0
+  baseDamage: 0
+  bonusDamage: 0
+  range: 0
+  speed: 0
+  attackSpeed: 0
