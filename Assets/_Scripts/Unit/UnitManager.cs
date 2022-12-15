@@ -8,22 +8,41 @@ public class UnitManager : MonoBehaviour
     public bool isSelected = false;
     public Types.PlayerOwner playerOwner;
     public Types.Team team;
-    public StatsSO stats;
+    private StatsSO stats;
+    private Renderer renderer_;
+    private GameObject renderGO;
 
-    void Start()
+    public void HandleStart(StatsSO givenStats)
     {
-        UnitsSelection.Instance.unitsList.Add(this.gameObject);
+        stats = givenStats;
 
         unitMovement = gameObject.AddComponent<UnitMovement>();
         unitMovement.HandleStart(stats.speed);
 
-        Debug.Log(stats.speed);
-
-        unitStats = GetComponent<UnitStats>();
+        //unitStats = GetComponent<UnitStats>();
+        unitStats = gameObject.AddComponent<UnitStats>();
         unitStats.HandleStart(stats);
 
         unitAttack = gameObject.AddComponent<UnitAttack>();
         unitAttack.HandleStart(stats);
+
+        renderGO = transform.Find("Render").gameObject;
+        renderer_ = renderGO.GetComponent<Renderer>();
+
+        Color color = Color.gray;
+        if (team == Types.Team.team1)
+        {
+            color = Color.blue;
+        }
+        if (team == Types.Team.team2)
+        {
+            color = Color.red;
+        }
+        renderer_.material.color = color;
+
+        UnitsSelection.Instance.unitsList.Add(this.gameObject);
+        // transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+
     }
 
     void onDestroy()

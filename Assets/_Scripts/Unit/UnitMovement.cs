@@ -17,6 +17,7 @@ public class UnitMovement : MonoBehaviour
         ground = LayerMask.GetMask("Ground");
         myAgent = GetComponent<NavMeshAgent>();
         myAgent.speed = speed;
+        myAgent.acceleration = 999;
         started = true;
     }
 
@@ -27,17 +28,11 @@ public class UnitMovement : MonoBehaviour
 
         if (isSelected && Input.GetMouseButtonDown(1))
         {
-            Debug.Log("Click");
-            Debug.Log("ground --> " + ground);
-            Debug.Log("myCam --> " + myCam);
-            Debug.Log("myAgent --> " + myAgent);
-
             Ray ray = myCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
             {
-                Debug.Log("hitPoint --> " + hit.point);
                 myAgent.SetDestination(hit.point);
             }
         }
