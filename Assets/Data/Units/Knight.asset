@@ -23,5 +23,5 @@ MonoBehaviour:
   baseDamage: 20
   bonusDamage: 0
   range: 5
-  speed: 10
+  speed: 3
   attackSpeed: 2

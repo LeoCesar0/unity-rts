@@ -3,6 +3,7 @@ using UnityEngine;
 public class UnitManager : MonoBehaviour
 {
     private UnitMovement unitMovement;
+    private UnitAttack unitAttack;
     private UnitStats unitStats;
     public bool isSelected = false;
     public Types.PlayerOwner playerOwner;
@@ -13,14 +14,16 @@ public class UnitManager : MonoBehaviour
     {
         UnitsSelection.Instance.unitsList.Add(this.gameObject);
 
-        UnitMovement unitMovement = gameObject.AddComponent<UnitMovement>();
+        unitMovement = gameObject.AddComponent<UnitMovement>();
         unitMovement.HandleStart(stats.speed);
+
+        Debug.Log(stats.speed);
 
         unitStats = GetComponent<UnitStats>();
         unitStats.HandleStart(stats);
 
-        UnitAttack createdUnitAttack = gameObject.AddComponent<UnitAttack>();
-        createdUnitAttack.HandleStart(stats);
+        unitAttack = gameObject.AddComponent<UnitAttack>();
+        unitAttack.HandleStart(stats);
     }
 
     void onDestroy()
@@ -46,7 +49,4 @@ public class UnitManager : MonoBehaviour
         }
 
     }
-
-
-
 }

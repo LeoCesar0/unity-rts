@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 public class UnitMovement : MonoBehaviour
 {
-
-
     private bool isSelected = false;
     private LayerMask ground;
     NavMeshAgent myAgent;
@@ -16,7 +14,7 @@ public class UnitMovement : MonoBehaviour
     public void HandleStart(float speed)
     {
         myCam = Camera.main;
-        ground = LayerMask.NameToLayer("Ground");
+        ground = LayerMask.GetMask("Ground");
         myAgent = GetComponent<NavMeshAgent>();
         myAgent.speed = speed;
         started = true;
@@ -29,18 +27,25 @@ public class UnitMovement : MonoBehaviour
 
         if (isSelected && Input.GetMouseButtonDown(1))
         {
+            Debug.Log("Click");
+            Debug.Log("ground --> " + ground);
+            Debug.Log("myCam --> " + myCam);
+            Debug.Log("myAgent --> " + myAgent);
+
             Ray ray = myCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
             {
+                Debug.Log("hitPoint --> " + hit.point);
                 myAgent.SetDestination(hit.point);
             }
         }
 
     }
 
-    public void SetSelected (bool selected){
+    public void SetSelected(bool selected)
+    {
         isSelected = selected;
     }
 
