@@ -40,4 +40,5 @@ public class Types
         team3,
         team4
     }
+    public enum ResourceType { wood, stone, food, gold }
 }

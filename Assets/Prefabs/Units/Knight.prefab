@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1603819514439301720}
-  - component: {fileID: 1603819514439301727}
   - component: {fileID: 1603819514439301721}
   - component: {fileID: 1603819514439301722}
+  - component: {fileID: 3050567493240858272}
   m_Layer: 7
   m_Name: Knight
   m_TagString: Unit
@@ -36,19 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1603819514439301727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1603819514439301726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b0d1f25e182a0241bb906f8e011a018, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: d900912bff93e0a43aee77a1480f02ab, type: 2}
 --- !u!136 &1603819514439301721
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -85,6 +72,24 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &3050567493240858272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603819514439301726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464ea53dc4ff30f43b93c2b5ea8135a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerOwner: 0
+  team: 0
+  unitType: 0
+  unitClassList: 
+  isSelected: 0
+  defaultStats: {fileID: 11400000, guid: d900912bff93e0a43aee77a1480f02ab, type: 2}
 --- !u!1 &1603819514903735671
 GameObject:
   m_ObjectHideFlags: 0

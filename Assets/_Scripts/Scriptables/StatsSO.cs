@@ -1,10 +1,11 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 
 [CreateAssetMenu(fileName = "UnitStats", menuName = "RTS Project/UnitStats", order = 0)]
 public class StatsSO : ScriptableObject {
     public Types.UnitType unitType;
-    public Types.UnitClass unitClass;
+    public List<Types.UnitClass> unitClassList = new List<Types.UnitClass>();
     public int maxHp;
     public int overHp;
     public int slashingArmour;

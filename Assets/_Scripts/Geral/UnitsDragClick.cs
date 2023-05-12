@@ -15,6 +15,8 @@ public class UnitsDragClick : MonoBehaviour
     Vector2 startPosition;
     Vector2 endPosition;
 
+    public LayerMask clickable;
+
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +61,8 @@ public class UnitsDragClick : MonoBehaviour
         // loop thru all the units
         foreach (GameObject unit in UnitsSelection.Instance.unitsList)
         {
-            if (selectionBox.Contains(myCam.WorldToScreenPoint(unit.transform.position)))
+            bool unitIsClickable = LayerMask.LayerToName(unit.layer) == "Clickable";
+            if (selectionBox.Contains(myCam.WorldToScreenPoint(unit.transform.position)) && unitIsClickable)
             {
                 UnitsSelection.Instance.DragSelect(unit);
             }

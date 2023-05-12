@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Knight
   m_EditorClassIdentifier: Assembly-CSharp::Stats
   unitType: 1
-  unitClass: 3
+  unitClassList: 03000000
   maxHp: 100
   overHp: 0
   slashingArmour: 2
   piercingArmour: 2
-  magicalArmour: 4
+  magicalArmour: 0
   damageType: 0
   baseDamage: 20
   bonusDamage: 0
-  range: 5
-  speed: 3
-  attackSpeed: 2
+  range: 0
+  speed: 5
+  attackSpeed: 0.4

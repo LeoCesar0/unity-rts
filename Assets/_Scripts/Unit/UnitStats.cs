@@ -1,9 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitStats : MonoBehaviour
 {
     public Types.UnitType unitType;
     public Types.UnitClass unitClass;
+
+    public List<Types.UnitClass> unitClassList;
+
     public int hp;
     public int overHp;
     public int slashingArmour;
@@ -24,7 +28,8 @@ public class UnitStats : MonoBehaviour
         hp = stats.maxHp;
         overHp = stats.overHp;
         unitType = stats.unitType;
-        unitClass = stats.unitClass;
+        // unitClass = stats.unitClass;
+        unitClassList = stats.unitClassList;
         slashingArmour = stats.slashingArmour;
         piercingArmour = stats.piercingArmour;
         magicalArmour = stats.magicalArmour;

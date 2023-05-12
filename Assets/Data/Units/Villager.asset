@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41e1a90c59c26794ea39b2315bfb93c0, type: 3}
-  m_Name: Archer
-  m_EditorClassIdentifier: Assembly-CSharp::Stats
+  m_Name: Villager
+  m_EditorClassIdentifier: 
   unitType: 0
-  unitClassList: 02000000
-  maxHp: 50
+  unitClassList: 
+  maxHp: 25
   overHp: 0
   slashingArmour: 0
   piercingArmour: 0
   magicalArmour: 0
-  damageType: 1
-  baseDamage: 10
+  damageType: 0
+  baseDamage: 2
   bonusDamage: 0
-  range: 10
+  range: 0
   speed: 3
   attackSpeed: 0.5
