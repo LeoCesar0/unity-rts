@@ -1,9 +1,7 @@
 
 public class Villager : Unit
 {
-    public StatsSO defaultStats;
     // Start is called before the first frame update
-
     public int wood = 0;
     public int stone = 0;
     public int food = 0;
@@ -12,23 +10,23 @@ public class Villager : Unit
 
     protected override void Start()
     {
-        stats = defaultStats;
         // Call the setup method
         base.Start();
-        Setup();
+        // Setup();
     }
 
     // The setup method is abstract, so it must be overridden in a subclass
-    protected override void Setup()
+    // protected override void Setup()
+    // {
+
+    // }
+
+    public void DepositResourcesToPlayer()
     {
 
     }
 
-    public void DepositResourcesToPlayer(){
-        
-    }
-
-   public void GatherResources(Types.ResourceType resourceType, int amount)
+    public void GatherResources(Types.ResourceType resourceType, int amount)
     {
         switch (resourceType)
         {

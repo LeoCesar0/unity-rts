@@ -12,8 +12,8 @@ public class StatsSO : ScriptableObject {
     public int piercingArmour;
     public int magicalArmour;
     public Types.Damage damageType;
-    public int baseDamage;
-    public int bonusDamage;
+    public float baseDamage;
+    public float bonusDamage;
     public float range;
     public float speed;
     public float attackSpeed;

@@ -1,28 +1,52 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class UnitMovement : MonoBehaviour
+public class UnitMovement
 {
     private bool isSelected = false;
     private LayerMask ground;
-    NavMeshAgent myAgent;
-    Camera myCam;
+    private NavMeshAgent navMeshAgent;
+    private Camera myCam;
+    private Unit unit;
+
+    public UnitMovement(Unit unit, Camera cam)
+    {
+        navMeshAgent = unit.GetComponent<NavMeshAgent>();
+        myCam = cam;
+        this.unit = unit;
+
+        HandleStart();
+    }
 
     private bool started = false;
-    public void HandleStart(float speed)
+    public void HandleStart()
     {
-        myCam = Camera.main;
+        // myCam = Camera.main;
         ground = LayerMask.GetMask("Ground");
-        myAgent = GetComponent<NavMeshAgent>();
-        myAgent.speed = speed;
-        myAgent.acceleration = 999;
+        // myAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent.speed = unit.defaultStats.speed;
+        navMeshAgent.acceleration = 999;
         started = true;
+
+        Debug.Log("UnitMovement");
     }
 
     // Update is called once per frame
-    void Update()
+
+    public void HandleMovement()
     {
-        if (!started) return;
+        if (!started || unit.unitStats.isDead) return;
+
+        if (UnitsSelection.Instance.unitsSelected.Contains(unit.gameObject))
+        {
+            isSelected = true;
+            unit.isSelected = isSelected;
+        }
+        else
+        {
+            isSelected = false;
+            unit.isSelected = isSelected;
+        }
 
         if (isSelected && Input.GetMouseButtonDown(1))
         {
@@ -31,16 +55,13 @@ public class UnitMovement : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
             {
-                myAgent.SetDestination(hit.point);
+                navMeshAgent.SetDestination(hit.point);
             }
         }
-
     }
 
     public void SetSelected(bool selected)
     {
         isSelected = selected;
     }
-
-
 }

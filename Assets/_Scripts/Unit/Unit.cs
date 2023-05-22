@@ -6,21 +6,32 @@ using UnityEngine.AI;
 public abstract class Unit : MonoBehaviour
 {
 
+    /* --------------------------------- PUBLIC --------------------------------- */
+
     public Types.PlayerOwner playerOwner;
     public Types.Team team;
+    public UnitStats unitStats { get; protected set; }
+    public bool isSelected = false;
+
+    /* --------------------------------- PRIVATE -------------------------------- */
+
     protected UnitMovement unitMovement;
     protected UnitAttack unitAttack;
-    protected UnitStats unitStats;
-    public bool isSelected = false;
-    protected StatsSO stats;
+
+    // public StatsSO stats { get; protected set; }
+    public StatsSO defaultStats;
+
     protected Renderer _renderer;
     protected GameObject renderGO;
 
+    private float delayOnDestroy = 2.5f;
+
     protected virtual void Start()
     {
-        if (stats == null)
+        if (defaultStats == null)
         {
             Debug.LogError("StatsSO is not assigned for " + gameObject.name);
+            Destroy(gameObject);
             return;
         }
 
@@ -37,7 +48,7 @@ public abstract class Unit : MonoBehaviour
         UnitsSelection.Instance.unitsList.Add(this.gameObject);
         // transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
-    protected abstract void Setup();
+    // protected abstract void Setup();
 
     void OnDestroy()
     {
@@ -47,33 +58,27 @@ public abstract class Unit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (UnitsSelection.Instance.unitsSelected.Contains(gameObject))
+        if (unitStats.isDead == true)
         {
-            bool state = true;
-            isSelected = state;
-            unitMovement.SetSelected(state);
-        }
-        else
-        {
-            bool state = false;
-            isSelected = state;
-            unitMovement.SetSelected(state);
+            OnDie();
         }
 
+        unitMovement.HandleMovement();
     }
 
     private void SetupComponents()
     {
-        unitMovement = gameObject.AddComponent<UnitMovement>();
-        unitMovement.HandleStart(stats.speed);
+        // unitMovement = gameObject.AddComponent<UnitMovement>();
+        // unitMovement.HandleStart(stats.speed);
+        NavMeshAgent navMeshAgent = GetComponent<NavMeshAgent>();
+        unitMovement = new UnitMovement(this, Camera.main);
 
-        //unitStats = GetComponent<UnitStats>();
-        unitStats = gameObject.AddComponent<UnitStats>();
-        unitStats.HandleStart(stats);
+        // unitStats = gameObject.AddComponent<UnitStats>();
+        // unitStats.HandleStart(stats);
 
-        unitAttack = gameObject.AddComponent<UnitAttack>();
-        unitAttack.HandleStart(stats);
+        unitStats = new UnitStats(this);
+
+        unitAttack = new UnitAttack(this);
     }
 
     private void SetupRender()
@@ -94,9 +99,13 @@ public abstract class Unit : MonoBehaviour
             }
             _renderer.material.color = color;
         }
-
     }
 
+    private IEnumerator OnDie()
+    {
+        yield return new WaitForSeconds(delayOnDestroy);
+        Destroy(gameObject);
+    }
 
 
 }
