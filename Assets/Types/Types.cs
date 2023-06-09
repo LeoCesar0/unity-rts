@@ -41,4 +41,7 @@ public class Types
         team4
     }
     public enum ResourceType { wood, stone, food, gold }
+
+
+    public enum VillagerTasks {gatherWood, gatherFood, gatherStone, gatherGold, build, none, idle}
 }

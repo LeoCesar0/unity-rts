@@ -15,7 +15,7 @@ public abstract class Unit : MonoBehaviour
 
     /* --------------------------------- PRIVATE -------------------------------- */
 
-    protected UnitMovement unitMovement;
+    public UnitMovement unitMovement;
     protected UnitAttack unitAttack;
 
     // public StatsSO stats { get; protected set; }
@@ -72,9 +72,6 @@ public abstract class Unit : MonoBehaviour
         // unitMovement.HandleStart(stats.speed);
         NavMeshAgent navMeshAgent = GetComponent<NavMeshAgent>();
         unitMovement = new UnitMovement(this, Camera.main);
-
-        // unitStats = gameObject.AddComponent<UnitStats>();
-        // unitStats.HandleStart(stats);
 
         unitStats = new UnitStats(this);
 

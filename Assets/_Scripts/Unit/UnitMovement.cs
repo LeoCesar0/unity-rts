@@ -5,7 +5,7 @@ public class UnitMovement
 {
     private bool isSelected = false;
     private LayerMask ground;
-    private NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent;
     private Camera myCam;
     private Unit unit;
 

@@ -7,6 +7,7 @@ public class Villager : Unit
     public int food = 0;
     public int gold = 0;
 
+    private Types.VillagerTasks currentTask = Types.VillagerTasks.idle;
 
     protected override void Start()
     {
@@ -15,18 +16,12 @@ public class Villager : Unit
         // Setup();
     }
 
-    // The setup method is abstract, so it must be overridden in a subclass
-    // protected override void Setup()
-    // {
-
-    // }
-
     public void DepositResourcesToPlayer()
     {
 
     }
 
-    public void GatherResources(Types.ResourceType resourceType, int amount)
+    public void GetResource(Types.ResourceType resourceType, int amount)
     {
         switch (resourceType)
         {
@@ -46,5 +41,11 @@ public class Villager : Unit
                 throw new System.ArgumentException("Invalid resource type");
         }
     }
+
+
+    public void SetVillagerTask(Types.VillagerTasks task){
+        currentTask = task;
+    }
+
 
 }
