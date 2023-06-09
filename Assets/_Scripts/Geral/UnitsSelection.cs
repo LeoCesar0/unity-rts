@@ -7,7 +7,6 @@ public class UnitsSelection : MonoBehaviour
    
     public List<GameObject> unitsList = new List<GameObject>();
     public List<GameObject> unitsSelected = new List<GameObject>();
-
     private static UnitsSelection instance_;
     public static UnitsSelection Instance { get { return instance_; } }
 

@@ -2,12 +2,21 @@
 public class Villager : Unit
 {
     // Start is called before the first frame update
-    public int wood = 0;
-    public int stone = 0;
-    public int food = 0;
-    public int gold = 0;
+    public float wood = 0;
+    public float stone = 0;
+    public float food = 0;
+    public float gold = 0;
+
+    public float woodGatherRate = 1f;
+    public float stoneGatherRate = 1f;
+    public float foodGatherRate = 1f;
+    public float goldGatherRate = 1f;
+
+    public float carryCapacity = 15f;
 
     private Types.VillagerTasks currentTask = Types.VillagerTasks.idle;
+
+    public bool isGathering { get; private set; } = false;
 
     protected override void Start()
     {
@@ -21,7 +30,7 @@ public class Villager : Unit
 
     }
 
-    public void GetResource(Types.ResourceType resourceType, int amount)
+    public void GatherResource(Types.ResourceType resourceType, float amount)
     {
         switch (resourceType)
         {
@@ -43,8 +52,15 @@ public class Villager : Unit
     }
 
 
-    public void SetVillagerTask(Types.VillagerTasks task){
+    public void SetVillagerTask(Types.VillagerTasks task)
+    {
         currentTask = task;
+    }
+
+
+    public void SetIsGathering(bool active)
+    {
+        isGathering = active;
     }
 
 
