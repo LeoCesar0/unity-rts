@@ -47,7 +47,7 @@ public class Resources : MonoBehaviour
 
         if (vill.isGathering)
         {
-            unit.unitMovement.navMeshAgent.Stop();
+            unit.unitMovement.navMeshAgent.isStopped = true;
         }
         else
         {

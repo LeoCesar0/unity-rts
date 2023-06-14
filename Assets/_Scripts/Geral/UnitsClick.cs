@@ -15,19 +15,19 @@ public class UnitsClick : MonoBehaviour
     {
         myCam = Camera.main;
         //clickable = LayerMask.NameToLayer("Clickable");
-       // ground = LayerMask.NameToLayer("Ground");
+        // ground = LayerMask.NameToLayer("Ground");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
             Ray ray = myCam.ScreenPointToRay(Input.mousePosition);
 
-            if(Physics.Raycast(ray, out hit, Mathf.Infinity, clickable))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, clickable))
             {
                 GameObject hitObject = hit.collider.gameObject;
                 // SHIFT SELECT
@@ -45,15 +45,27 @@ public class UnitsClick : MonoBehaviour
             else
             {
                 //DESELECT ALL IF NOT HOLDING SHIFT
-
                 if (!Input.GetKey(KeyCode.LeftShift))
                 {
                     UnitsSelection.Instance.DeselectAll();
                 }
-                
+
+            }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            // Tropas selecionadas execute uma ação
+
+            RaycastHit hit;
+            Ray ray = myCam.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                UnitsSelection.Instance.ExecuteAction(hit.collider.gameObject);
             }
 
         }
-        
+
     }
 }

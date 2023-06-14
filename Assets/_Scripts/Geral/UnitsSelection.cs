@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class UnitsSelection : MonoBehaviour
 {
-   
+
     public List<GameObject> unitsList = new List<GameObject>();
     public List<GameObject> unitsSelected = new List<GameObject>();
     private static UnitsSelection instance_;
     public static UnitsSelection Instance { get { return instance_; } }
 
+    private Camera myCamera;
+
+    private LayerMask groundLayer;
+
+
     void Awake()
     {
 
-        if(instance_ != null && instance_ != this)
+        if (instance_ != null && instance_ != this)
         {
             Destroy(this.gameObject);
         }
@@ -22,7 +27,10 @@ public class UnitsSelection : MonoBehaviour
             instance_ = this;
         }
 
+        myCamera = Camera.main;
+        groundLayer = LayerMask.GetMask("Ground");
     }
+
 
 
     public void ClickSelect(GameObject unitToAdd)
@@ -34,7 +42,8 @@ public class UnitsSelection : MonoBehaviour
 
     public void ShiftClickSelect(GameObject unitToAdd)
     {
-        if(!unitsSelected.Contains(unitToAdd)) {
+        if (!unitsSelected.Contains(unitToAdd))
+        {
             unitsSelected.Add(unitToAdd);
             SetSelectMark(unitToAdd, true);
         }
@@ -47,7 +56,8 @@ public class UnitsSelection : MonoBehaviour
 
     public void DragSelect(GameObject unitToAdd)
     {
-        if (!unitsSelected.Contains(unitToAdd)){
+        if (!unitsSelected.Contains(unitToAdd))
+        {
             unitsSelected.Add(unitToAdd);
             SetSelectMark(unitToAdd, true);
         }
@@ -75,5 +85,27 @@ public class UnitsSelection : MonoBehaviour
             SelectMark.GetComponent<MeshRenderer>().enabled = boolean;
         }
     }
- 
+
+
+    public void ExecuteAction(GameObject interactedGameobject)
+    {
+
+        Ray ray = myCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+        {
+
+            Interactable hitInteractable = hit.transform.GetComponent<Interactable>();
+
+            foreach (var selectedGO in unitsSelected)
+            {
+                Interactable selectedInteractable = selectedGO.GetComponent<Interactable>();
+
+                selectedInteractable.Interact(hitInteractable);
+            }
+
+        }
+    }
+
 }

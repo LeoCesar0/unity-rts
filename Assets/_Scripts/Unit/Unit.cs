@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class Unit : MonoBehaviour
+public abstract class Unit : MonoBehaviour, Interactable
 {
 
     /* --------------------------------- PUBLIC --------------------------------- */
@@ -23,6 +23,8 @@ public abstract class Unit : MonoBehaviour
 
     protected Renderer _renderer;
     protected GameObject renderGO;
+    private LayerMask groundLayer;
+    private Camera myCam;
 
     private float delayOnDestroy = 2.5f;
 
@@ -38,8 +40,9 @@ public abstract class Unit : MonoBehaviour
         if (!gameObject.GetComponent<NavMeshAgent>())
         {
             gameObject.AddComponent<NavMeshAgent>();
-
         }
+
+        groundLayer = LayerMask.GetMask("Ground");
 
         SetupComponents();
 
@@ -63,7 +66,13 @@ public abstract class Unit : MonoBehaviour
             OnDie();
         }
 
-        unitMovement.HandleMovement();
+        CheckIfSelected();
+
+        if (isSelected)
+        {
+            ListenToActions();
+        }
+
     }
 
     private void SetupComponents()
@@ -71,7 +80,7 @@ public abstract class Unit : MonoBehaviour
         // unitMovement = gameObject.AddComponent<UnitMovement>();
         // unitMovement.HandleStart(stats.speed);
         NavMeshAgent navMeshAgent = GetComponent<NavMeshAgent>();
-        unitMovement = new UnitMovement(this, Camera.main);
+        unitMovement = new UnitMovement(this);
 
         unitStats = new UnitStats(this);
 
@@ -105,4 +114,70 @@ public abstract class Unit : MonoBehaviour
     }
 
 
+    public void CheckIfSelected()
+    {
+        if (unitStats.isDead)
+        {
+            isSelected = false;
+            return;
+        }
+
+        if (UnitsSelection.Instance.unitsSelected.Contains(gameObject))
+        {
+            isSelected = true;
+        }
+        else
+        {
+            isSelected = false;
+        }
+    }
+
+    private void VillagerActions()
+    {
+
+    }
+
+    private void ListenToActions()
+    {
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Ray ray = myCam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+
+                if (defaultStats.unitType == Types.UnitType.villager)
+                {
+
+                }
+
+                Resources resource = hit.collider.GetComponent<Resources>();
+
+
+                return;
+            }
+
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+            {
+                unitMovement.MoveTo(hit.point);
+            }
+        }
+    }
+
+
+
+
+
+    public void Interact(Interactable interactable)
+    {
+        
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+        {
+            unitMovement.MoveTo(hit.point);
+        }
+    }
 }
