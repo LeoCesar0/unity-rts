@@ -1,4 +1,6 @@
 
+using UnityEngine;
+
 public class Villager : Unit
 {
     // Start is called before the first frame update
@@ -64,6 +66,9 @@ public class Villager : Unit
     }
 
 
-    
+    // public void InteractWithUnit(Unit unit){
+    //     Debug.Log("INTERACT WITH UNIT VILLAGER");
+    //     unitMovement.MoveTo(unit.transform.position);
+    // }
 
 }

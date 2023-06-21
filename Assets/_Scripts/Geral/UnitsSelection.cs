@@ -93,18 +93,40 @@ public class UnitsSelection : MonoBehaviour
         Ray ray = myCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-
             Interactable hitInteractable = hit.transform.GetComponent<Interactable>();
+            Unit hitUnit = hit.transform.GetComponent<Unit>();
+
+            bool hitGround = hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground");
+
+            Debug.Log($"hitGround --> {hitGround}");
+
+            if (hitUnit != null)
+            {
+                Debug.Log($"hitUnit --> {hitUnit}");
+            }
 
             foreach (var selectedGO in unitsSelected)
             {
                 Interactable selectedInteractable = selectedGO.GetComponent<Interactable>();
+                Unit selectedUnit = selectedGO.GetComponent<Unit>();
+                bool executedAction = false;
 
-                selectedInteractable.Interact(hitInteractable);
+                if (selectedInteractable != null && selectedGO != hit.transform.gameObject)
+                {
+                    if (hitUnit != null)
+                    {
+                        selectedInteractable.InteractWithUnit(hitUnit);
+                        executedAction = true;
+                    }
+                }
+
+                if (selectedUnit != null && executedAction == false)
+                {
+                    selectedUnit.unitMovement.MoveTo(hit.point);
+                }
             }
-
         }
     }
 

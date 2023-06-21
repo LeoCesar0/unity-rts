@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public interface Interactable {
+public interface Interactable
+{
 
+    public abstract void InteractWithUnit(Unit unit);
 
-    public abstract void Interact(Interactable interactable);
 
 }

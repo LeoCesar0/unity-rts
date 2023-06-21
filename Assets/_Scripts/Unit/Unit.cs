@@ -67,12 +67,6 @@ public abstract class Unit : MonoBehaviour, Interactable
         }
 
         CheckIfSelected();
-
-        if (isSelected)
-        {
-            ListenToActions();
-        }
-
     }
 
     private void SetupComponents()
@@ -116,7 +110,7 @@ public abstract class Unit : MonoBehaviour, Interactable
 
     public void CheckIfSelected()
     {
-        if (unitStats.isDead)
+        if (unitStats.isDead && isSelected)
         {
             isSelected = false;
             return;
@@ -132,52 +126,9 @@ public abstract class Unit : MonoBehaviour, Interactable
         }
     }
 
-    private void VillagerActions()
+    public void InteractWithUnit(Unit unit)
     {
-
-    }
-
-    private void ListenToActions()
-    {
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            Ray ray = myCam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-
-                if (defaultStats.unitType == Types.UnitType.villager)
-                {
-
-                }
-
-                Resources resource = hit.collider.GetComponent<Resources>();
-
-
-                return;
-            }
-
-
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
-            {
-                unitMovement.MoveTo(hit.point);
-            }
-        }
-    }
-
-
-
-
-
-    public void Interact(Interactable interactable)
-    {
-        
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
-        {
-            unitMovement.MoveTo(hit.point);
-        }
+        Debug.Log("INTERACT WITH UNIT");
+        unitMovement.MoveTo(unit.transform.position);
     }
 }
